@@ -28,3 +28,4 @@ wheels/
 *.fls
 *.snm
 *.synctex.gz
+*.fdb_latexmk
