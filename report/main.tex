@@ -1,47 +1,45 @@
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[portuguese]{babel}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{amsmath}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
+\documentclass[12pt]{article} \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} \usepackage[portuguese]{babel} \usepackage{graphicx}
+\usepackage{hyperref} \usepackage{booktabs} \usepackage{amsmath}
+\usepackage{geometry} \geometry{a4paper, margin=1in}
 
 \title{Relatório de Análise de Série Temporal no Mercado Imobiliário}
-\author{Gabriel Fruet}
-\date{\today}
+\author{Gabriel Fruet} \date{\today}
 
 \begin{document}
 
 \maketitle
 
-\section{Introdução}
-Este relatório apresenta uma análise da série temporal da razão de consumidores entre 38 e 58 anos em relação ao número de empresas ativas por estado, no período de 2007 a 2022. Utilizamos dados da SCOD Brasil e do IBGE para realizar esta análise.
+\section{Introdução} Este relatório apresenta uma análise da série temporal da
+razão de consumidores entre 38 e 58 anos em relação ao número de empresas
+ativas por estado, no período de 2007 a 2022. Utilizamos dados da SCOD Brasil e
+do IBGE para realizar esta análise.
 
-\section{Metodologia}
-\subsection{Coleta de Dados}
-Os dados das empresas foram obtidos da Tabela 1757 do SIDRA, utilizando requisições HTTP diretamente, sem o uso de bibliotecas prontas. A população estimada foi obtida da projeção populacional disponibilizada pelo IBGE.
+\section{Metodologia} \subsection{Coleta de Dados} Os dados das empresas foram
+obtidos da Tabela 1757 do SIDRA, utilizando requisições HTTP diretamente, sem o
+uso de bibliotecas prontas. A população estimada foi obtida da projeção
+populacional disponibilizada pelo IBGE.
 
-\subsection{Análise de Dados}
-Para a análise, utilizamos métodos de interpolação para ajustar os dados à faixa etária requerida. A série temporal foi agrupada por estado para identificar padrões de comportamento.
+\subsection{Análise de Dados} Para a análise, utilizamos métodos de
+interpolação para ajustar os dados à faixa etária requerida. A série temporal
+foi agrupada por estado para identificar padrões de comportamento.
 
-\section{Resultados}
-\subsection{Análise Temporal}
-Apresentamos aqui os gráficos e tabelas que mostram a evolução da razão de consumidores por estado.
+\section{Resultados} \subsection{Análise Temporal} Apresentamos aqui os
+gráficos e tabelas que mostram a evolução da razão de consumidores por estado.
 
-\subsection{Estados Saturados e Oportunidades}
-Identificamos os estados que apresentam saturação no mercado e aqueles com maiores oportunidades futuras.
+\subsection{Estados Saturados e Oportunidades} Identificamos os estados que
+apresentam saturação no mercado e aqueles com maiores oportunidades futuras.
 
-\section{Conclusão}
-Concluímos com as principais descobertas e recomendações baseadas na análise dos dados.
+\section{Conclusão} Concluímos com as principais descobertas e recomendações
+baseadas na análise dos dados.
 
-\section*{Referências}
-\begin{itemize}
-    \item SCOD Brasil. Tendências do mercado imobiliário para 2023. Disponível em: \url{https://scod.com.br/blog/post/tendências-do-mercado-imobiliário-para-2023}
-    \item IBGE. Tabela 1757 - Dados gerais das empresas de construção. Disponível em: \url{https://apisidra.ibge.gov.br/home/ajuda}
-    \item IBGE. Projeção da população. Disponível em: \url{https://www.ibge.gov.br/estatisticas/sociais/populacao/9109-projecao-da-populacao.html}
+\section*{Referências} \begin{itemize} \item SCOD Brasil. Tendências do mercado
+    imobiliário para 2023. Disponível em:
+    \url{https://scod.com.br/blog/post/tendências-do-mercado-imobiliário-para-2023}
+    \item IBGE. Tabela 1757 - Dados gerais das empresas de construção.
+        Disponível em: \url{https://apisidra.ibge.gov.br/home/ajuda} \item
+IBGE. Projeção da população. Disponível em:
+\url{https://www.ibge.gov.br/estatisticas/sociais/populacao/9109-projecao-da-populacao.html}
 \end{itemize}
 
 \end{document}
