@@ -1,9 +1,9 @@
 from typing import Iterable
 import pandas as pd
 
-CODE_ACTIVE_BUSINESS = 410
+CODE_ACTIVE_BUSINESS = '410'
 
-def preprocess_business_data(df: pd.DataFrame) -> pd.DataFrame:
+def preprocess_business_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     """
     Preprocess the business data to be used in the analysis.
     The final format should be as follow:
@@ -21,7 +21,9 @@ def preprocess_business_data(df: pd.DataFrame) -> pd.DataFrame:
 
     """
 
-    df = df.query("`D3C` == @CODE_ACTIVE_BUSINESS") # Filter only open businesses
+    global CODE_ACTIVE_BUSINESS
+
+    df = df.query('`D3C` == @CODE_ACTIVE_BUSINESS') # Filter only open businesses
     df = pd.DataFrame(df[['V', 'D2N', 'D1N']]) # Select only value, region and year
     renaming = {
         'V': 'Quantidade',
@@ -40,7 +42,7 @@ def preprocess_business_data(df: pd.DataFrame) -> pd.DataFrame:
     df.index.name = 'Região'
     df.columns = [int(col) for col in df.columns if str(col).isdigit()]
 
-    return df
+    return df, pd.Series(regions)
 
 def preprocess_population_data(df: pd.DataFrame, regions: Iterable[str]):
     """
