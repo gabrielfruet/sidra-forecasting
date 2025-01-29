@@ -9,3 +9,22 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Latex intermediate files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.fls
+*.snm
+*.synctex.gz
