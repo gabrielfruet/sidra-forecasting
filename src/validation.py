@@ -27,6 +27,7 @@ def rolling_window_cv(df: pd.DataFrame, order: tuple[int,int,int] | list[tuple[i
     regions = df.index
     results = pd.DataFrame({
         'RMSE': [],
+        'NRMSE': [],
         'AR order': [],
         'I order': [],
         'MA order': [],
@@ -54,7 +55,8 @@ def rolling_window_cv(df: pd.DataFrame, order: tuple[int,int,int] | list[tuple[i
                 rolling_predictions.append(forecast[0])
 
             rmse = np.sqrt(mean_squared_error(test_actuals, rolling_predictions))
-            results.loc[len(results)] = (rmse, ar_order, i_order, ma_order, test_train_proportion, region)
+            nrmse = rmse/np.std(test_actuals)
+            results.loc[len(results)] = (rmse, nrmse, ar_order, i_order, ma_order, test_train_proportion, region)
 
     return results
 

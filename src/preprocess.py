@@ -44,7 +44,9 @@ def preprocess_business_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]
 
     return df, pd.Series(regions)
 
-def preprocess_population_data(df: pd.DataFrame, regions: Iterable[str]):
+def preprocess_population_data(df: pd.DataFrame,
+                               regions: Iterable[str],
+                               period: tuple[int,int]=(2007,2020)):
     """
     Preprocess the population data to be used in the analysis.
     The final format should be as follow:
@@ -68,7 +70,8 @@ def preprocess_population_data(df: pd.DataFrame, regions: Iterable[str]):
     assert isinstance(_df, pd.DataFrame), "Groupby sum should return a DataFrame"
     df = _df
     df = df.drop(['IDADE'], axis=1)
-    df = pd.DataFrame(df[[col for col in df.columns if str(col).isdigit() and 2007 <= int(col) <= 2020]])
+    start,end = period
+    df = pd.DataFrame(df[[col for col in df.columns if str(col).isdigit() and start <= int(col) <= end]])
     df.index.name = 'Região'
     df.columns = [int(col) for col in df.columns if str(col).isdigit()]
 

@@ -24,9 +24,11 @@ def plot_acf_pacf(df, path=None, lags=None):
 def plot_time_series(df_bus, df_pop, base_path):
     fig, ax = plt.subplots(figsize=(8, 5))
 
+    region_colors = {}
     for each in df_bus.iterrows():
-      region, values = each
-      ax.plot(values.index, values.values, label=region)
+        region, values = each
+        p = ax.plot(values.index, values.values, label=region)
+        region_colors[region] = p[0].get_color()
 
     ax.set_title('Quantidade de empresas ativas por região')
     ax.set_xlabel('Ano')
@@ -36,9 +38,11 @@ def plot_time_series(df_bus, df_pop, base_path):
 
     fig, ax = plt.subplots(figsize=(8, 5))
 
+
     for each in df_pop.iterrows():
-      region, values = each
-      ax.plot(values.index, values.values, label=region)
+        region, values = each
+        ax.plot(values.index, values.values, label=region, c=region_colors[region])
+
 
     ax.set_title('Quantidade de pessoas na faixa de interesse por região')
     ax.set_xlabel('Ano')
@@ -51,8 +55,8 @@ def plot_time_series(df_bus, df_pop, base_path):
     fig, ax = plt.subplots(figsize=(8, 5))
 
     for each in df_ratio.iterrows():
-      region, values = each
-      ax.plot(values.index, values.values, label=region)
+        region, values = each
+        ax.plot(values.index, values.values, label=region, c=region_colors[region])
 
     ax.set_title('Quantidade de pessoas na faixa de interesse por empresa ativa')
     ax.set_xlabel('Ano')
@@ -60,23 +64,33 @@ def plot_time_series(df_bus, df_pop, base_path):
     fig.legend()
     fig.savefig(base_path/'time_series_ratio.png')
 
-def plot_regions_forecast(df, arima_results, base_path):
+def plot_regions_forecast(df, df_true, arima_results, base_path):
     regions = df.index
     fig, ax = plt.subplots(1, figsize=(8, 5))
+    df_dict = {}
     for i, region in enumerate(regions):
-        plot_forecast(df, arima_results[region], region, ax)
+        forecast = plot_forecast(df, df_true, arima_results[region], region, ax)
+        df_dict[region] = {2021: forecast[0], 2022: forecast[1]}
 
     ax.set_xlabel('Ano')
     ax.set_ylabel('Consumidores por empresa ativa')
 
     fig.legend()
     fig.savefig(base_path/f'forecast.png', dpi=300)
+    return pd.DataFrame.from_dict(df_dict, orient='index')
 
-def plot_forecast(df, arima_result, region, ax):
+def plot_forecast(df, df_true, arima_result, region, ax):
     start = 2020
     end = 2022
 
+    forecast = arima_result.predict(start=start-2007,end=end-2007-1)
     p = ax.plot(np.arange(start,end+1), np.r_[df.loc[region].values[-1],
-                arima_result.predict(start=start-2007,end=end-2007-1)],
+                forecast],
                 ls='--')
-    ax.plot(df.columns, df.loc[region].values, c=p[0].get_color(), label=region,)
+    color = p[0].get_color()
+    ax.plot(np.arange(start,end+1), np.r_[df.loc[region].values[-1],
+                df_true.loc[region].values],
+                ls='dashdot', c = color)
+    ax.plot(df.columns, df.loc[region].values, c=color, label=region,)
+    return forecast
+
