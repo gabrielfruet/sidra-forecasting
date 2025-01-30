@@ -2,6 +2,7 @@ from src import preprocess
 from src import fetching
 from src import validation
 from src import plots
+from src import training
 
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from matplotlib import pyplot as plt
@@ -25,4 +26,8 @@ if __name__ == '__main__':
     plots.plot_acf_pacf(df_ratio, path=FIGURES/"acf_pacf.png")
     plots.plot_time_series(df_bus, df_pop, FIGURES)
 
-    result = validation.rolling_window_cv(df_ratio, [(1,0,0),(1,1,0),(1,1,1),(0,1,1),(0,0,1),(0,1,0)])
+    validation_metrics = validation.rolling_window_cv(df_ratio, [(1,0,0),(1,1,0),(1,1,1),(0,1,1),(0,0,1),(0,1,0)])
+
+    results = training.train_for_each_region(df_ratio, (1,1,0))
+
+    plots.plot_regions_forecast(df_ratio, results, FIGURES)

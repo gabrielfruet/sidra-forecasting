@@ -7,7 +7,10 @@ def train_for_each_region(df: pd.DataFrame, order: tuple[int,int,int]) -> dict[s
     results = {}
 
     for region in regions:
-        result = ARIMA(order).fit(df.loc[region])
+        print(f"Training ARIMA model for {region}")
+        print(df.loc[region].values)
+        result = ARIMA(df.loc[region].values, order=order).fit()
+        print(result.forecast())
         results[region] = result
 
     return results
