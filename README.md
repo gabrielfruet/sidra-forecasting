@@ -13,3 +13,12 @@ Ou utilizando *uv*
 ```bash
 uv sync
 ```
+
+## Uso
+
+Basta rodar o script principal do projeto:
+
+```bash
+python main.py
+```
+
